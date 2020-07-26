@@ -1,20 +1,20 @@
 var object = JSON.parse(localStorage.getItem("user"));
 if (object) {
-    if (object.Role == "admin") {
-        console.log(object.Role)
-        document.location.href = "/views/home.html"
+    if (object.Account.Role == "admin") {
+        console.log(object.Account.Role)
+        document.location.href = "/views/home_employee.html"
     }
 }
 
 function dang_nhap() {
     var obj = {}
-    obj.UserName = UserName.value
+    obj.Email = UserName.value
     obj.Password = Password.value
     var kq = JSON.parse(Dang_Nhap(obj))
     if (kq != 'loginfalse') {
         localStorage.setItem("user", JSON.stringify(kq))
         alert("Đăng nhập thành công!!!")
-        document.location.href = "/views/home.html"
+        document.location.href = "/views/home_employee.html"
     } else {
         alert("Đăng nhập thất bại!!!")
     }
@@ -51,7 +51,7 @@ function loginGoogle() {
         if (kq != 'loginGoogleFalse') {
             localStorage.setItem("user", JSON.stringify(kq))
             alert("Đăng nhập thành công!!!")
-            document.location.href = "/views/home.html"
+            document.location.href = "/views/home_employee.html"
         }
         else {
             document.getElementById("modalRegisterGoogle").click();
@@ -74,6 +74,7 @@ function dang_ky_google() {
     var acc = {};
     //acc.Password = md5(Password.value);
     acc.Password = PasswordGoogle.value;
+    acc.Role = "user"
     acc.UserName = EmailGoogle.value;
     var sch = {}
     sch.color = "do";
@@ -82,7 +83,6 @@ function dang_ky_google() {
     emp.Account = acc;
     emp.Email = EmailGoogle.value;
     emp.FullName = FullNameGoogle.value;
-    emp.Role = "admin"
     emp.Schedules = [];
     emp.Schedules.push(sch);
     Dang_Ky_Google(emp);
@@ -92,10 +92,25 @@ function dang_ky_google() {
     if (kq != 'loginGoogleFalse') {
         localStorage.setItem("user", JSON.stringify(kq))
         alert("Đăng nhập thành công!!!")
-        document.location.href = "/views/home.html"
+        document.location.href = "/views/home_employee.html"
     }
 
 }
+
+//xử lý ẩn hiển password
+const pass_field = document.querySelector(".pass-key");
+const showBtn = document.querySelector(".show");
+showBtn.addEventListener("click", function () {
+  if (pass_field.type === "password") {
+    pass_field.type = "text";
+    showBtn.textContent = "HIDE";
+    showBtn.style.color = "#3498db";
+  } else {
+    pass_field.type = "password";
+    showBtn.textContent = "SHOW";
+    showBtn.style.color = "#222";
+  }
+});
 
 
 

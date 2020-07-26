@@ -3,14 +3,11 @@ function forget_Password() {
 
     if (Email.value == null || Email.value.trim() == "") {
         alert("Vui lòng nhập Email!!!");
-
     } else {
         var obj = {}
         obj.Email = Email.value;
-        kq = Forgot_Password(obj)
-        console.log(kq)
-        if (kq.trim() != 'emailNotExist') {
-            
+        kq = JSON.parse(Forgot_Password(obj));
+        if (kq != 'emailNotExist') {
             alert("Email đã được gửi đến cho ban. Bạn hãy check Email!!!")
             document.getElementById("closeEmail").click();
         }else{
@@ -35,11 +32,10 @@ function reset_Password(){
         var acc = {};
         acc.Password = Password.value;
         var emp = {};
-        emp.Email = email;
         emp.Account = acc;
-        console.log(emp)
+        emp.Email = email;
         document.getElementById("closeResetPassword").click();
-        Sua_Tai_Khoan_Nhan_Vien(emp)
+        Doi_Mat_Khau(emp)
         alert("Reset Password thành công !!!")     
     }
    
